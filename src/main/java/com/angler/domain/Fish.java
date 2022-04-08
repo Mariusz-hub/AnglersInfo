@@ -12,18 +12,38 @@ public class Fish extends AbstractEntity {
 
     @Column(nullable = false)
     private String fishName;
+
     @Column(nullable = false)
     private int protectionSize;
+
     @Column(nullable = false)
     private LocalDate periodOfProtection;
 
+    @Column (nullable = false)
+    private Image fishImage;
+
     public Fish() {
+    }
+
+    public Fish(String fishName, int protectionSize, LocalDate periodOfProtection, Image fishImage) {
+        this.fishName = fishName;
+        this.protectionSize = protectionSize;
+        this.periodOfProtection = periodOfProtection;
+        this.fishImage = fishImage;
     }
 
     public Fish(String fishName, int protectionSize, LocalDate periodOfProtection) {
         this.fishName = fishName;
         this.protectionSize = protectionSize;
         this.periodOfProtection = periodOfProtection;
+    }
+
+    public Image getFishImage() {
+        return fishImage;
+    }
+
+    public void setFishImage(Image fishImage) {
+        this.fishImage = fishImage;
     }
 
     public String getFishName() {
@@ -58,12 +78,13 @@ public class Fish extends AbstractEntity {
         Fish fish = (Fish) o;
         return protectionSize == fish.protectionSize &&
                 Objects.equals(fishName, fish.fishName) &&
-                Objects.equals(periodOfProtection, fish.periodOfProtection);
+                Objects.equals(periodOfProtection, fish.periodOfProtection) &&
+                Objects.equals(fishImage, fish.fishImage);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), fishName, protectionSize, periodOfProtection);
+        return Objects.hash(super.hashCode(), fishName, protectionSize, periodOfProtection, fishImage);
     }
 
     @Override
