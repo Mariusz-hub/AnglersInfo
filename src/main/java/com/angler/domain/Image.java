@@ -1,4 +1,4 @@
 package com.angler.domain;
 
-public class Image {
+public class Image extends AbstractEntity {
 }

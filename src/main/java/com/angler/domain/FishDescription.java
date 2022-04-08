@@ -1,4 +1,4 @@
 package com.angler.domain;
 
-public class FishDescription {
+public class FishDescription extends AbstractEntity{
 }
