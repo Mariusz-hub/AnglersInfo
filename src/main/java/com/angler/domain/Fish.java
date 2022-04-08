@@ -1,9 +1,8 @@
 package com.angler.domain;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,7 +10,7 @@ import java.util.Objects;
 public class Fish extends AbstractEntity {
 
     @Column(nullable = false)
-    private String fishName;
+    private String name;
 
     @Column(nullable = false)
     private int protectionSize;
@@ -19,39 +18,44 @@ public class Fish extends AbstractEntity {
     @Column(nullable = false)
     private LocalDate periodOfProtection;
 
-    @Column (nullable = false)
-    private Image fishImage;
+    @OneToMany(mappedBy = "fish",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    private List<Picture> fishPicture;
+
+    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    @JoinColumn(name = "fish_descriptions_id")
+    private FishDescription description;
 
     public Fish() {
     }
 
-    public Fish(String fishName, int protectionSize, LocalDate periodOfProtection, Image fishImage) {
-        this.fishName = fishName;
-        this.protectionSize = protectionSize;
-        this.periodOfProtection = periodOfProtection;
-        this.fishImage = fishImage;
-    }
-
     public Fish(String fishName, int protectionSize, LocalDate periodOfProtection) {
-        this.fishName = fishName;
+        this.name = fishName;
         this.protectionSize = protectionSize;
         this.periodOfProtection = periodOfProtection;
     }
 
-    public Image getFishImage() {
-        return fishImage;
+    public List<Picture> getFishImage() {
+        return fishPicture;
     }
 
-    public void setFishImage(Image fishImage) {
-        this.fishImage = fishImage;
+    public void setFishImage(List<Picture> fishPicture) {
+        this.fishPicture = fishPicture;
     }
 
-    public String getFishName() {
-        return fishName;
+    public FishDescription getDescription() {
+        return description;
     }
 
-    public void setFishName(String fishName) {
-        this.fishName = fishName;
+    public void setDescription(FishDescription description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getProtectionSize() {
@@ -77,20 +81,20 @@ public class Fish extends AbstractEntity {
         if (!super.equals(o)) return false;
         Fish fish = (Fish) o;
         return protectionSize == fish.protectionSize &&
-                Objects.equals(fishName, fish.fishName) &&
+                Objects.equals(name, fish.name) &&
                 Objects.equals(periodOfProtection, fish.periodOfProtection) &&
-                Objects.equals(fishImage, fish.fishImage);
+                Objects.equals(fishPicture, fish.fishPicture);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), fishName, protectionSize, periodOfProtection, fishImage);
+        return Objects.hash(super.hashCode(), name, protectionSize, periodOfProtection, fishPicture);
     }
 
     @Override
     public String toString() {
         return "Fish{" +
-                "fishName='" + fishName + '\'' +
+                "fishName='" + name + '\'' +
                 ", protectionSize=" + protectionSize +
                 ", periodOfProtection=" + periodOfProtection +
                 '}';
