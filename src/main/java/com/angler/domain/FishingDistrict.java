@@ -1,7 +1,9 @@
 package com.angler.domain;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "fishing_district")
@@ -10,10 +12,15 @@ public class FishingDistrict extends AbstractEntity{
     @Column(name = "name")
     private String name;
 
-    @Column(name = "logo")
+
     @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
     @JoinColumn(name = "logo_id")
     private Picture logo;
+
+    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
+    @JoinTable(name = "district_fish",joinColumns = {@JoinColumn(name = "district_id")},
+            inverseJoinColumns =@JoinColumn(name = "fish_id") )
+    private Set<Fish> fish = new HashSet<>();
 
     public FishingDistrict(String name, Picture logo) {
         this.name = name;

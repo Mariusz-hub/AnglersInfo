@@ -2,8 +2,7 @@ package com.angler.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 @Table(name = "fish")
@@ -19,11 +18,16 @@ public class Fish extends AbstractEntity {
     private LocalDate periodOfProtection;
 
     @OneToMany(mappedBy = "fish",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
-    private List<Picture> fishPicture;
+    private List<Picture> fishPicture = new ArrayList<>();
 
     @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "fish_descriptions_id")
     private FishDescription description;
+
+    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
+    @JoinTable(name = "district_fish", joinColumns = {@JoinColumn(name = "fish_id")},
+            inverseJoinColumns = {@JoinColumn(name = "district_id")})
+    private Set<FishingDistrict> fishingDistricts = new HashSet<>();
 
     public Fish() {
     }
