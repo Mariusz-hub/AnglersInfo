@@ -18,10 +18,10 @@ public class Fish extends AbstractEntity {
     @Column(nullable = false)
     private LocalDate periodOfProtection;
 
-    @OneToMany(mappedBy = "fish",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+    @OneToMany(mappedBy = "fish",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
     private List<Picture> fishPicture;
 
-    @OneToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "fish_descriptions_id")
     private FishDescription description;
 
