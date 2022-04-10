@@ -6,30 +6,16 @@ import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "fishing_district")
-public class FishingDistrict extends AbstractEntity{
+@Table(name = "district")
+public class FishingDistrict extends AbstractEntity {
 
-    @Column(name = "name")
+    @Column
     private String name;
 
-
-    @OneToOne(cascade = {CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REMOVE})
-    @JoinColumn(name = "logo_id")
-    private Picture logo;
-
-    @ManyToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE})
-    @JoinTable(name = "district_fish",joinColumns = {@JoinColumn(name = "district_id")},
-            inverseJoinColumns =@JoinColumn(name = "fish_id") )
-    private Set<Fish> fish = new HashSet<>();
-
-    public FishingDistrict(String name, Picture logo) {
-        this.name = name;
-        this.logo = logo;
-    }
+    @ManyToMany
+    private Set<Fish> fishSet = new HashSet<>();
 
     public FishingDistrict() {
-
-
     }
 
     public String getName() {
@@ -40,12 +26,12 @@ public class FishingDistrict extends AbstractEntity{
         this.name = name;
     }
 
-    public Picture getLogo() {
-        return logo;
+    public Set<Fish> getFishSet() {
+        return fishSet;
     }
 
-    public void setLogo(Picture logo) {
-        this.logo = logo;
+    public void setFishSet(Set<Fish> fishSet) {
+        this.fishSet = fishSet;
     }
 
     @Override
@@ -55,19 +41,19 @@ public class FishingDistrict extends AbstractEntity{
         if (!super.equals(o)) return false;
         FishingDistrict that = (FishingDistrict) o;
         return Objects.equals(name, that.name) &&
-                Objects.equals(logo, that.logo);
+                Objects.equals(fishSet, that.fishSet);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, logo);
+        return Objects.hash(super.hashCode(), name, fishSet);
     }
 
     @Override
     public String toString() {
         return "FishingDistrict{" +
                 "name='" + name + '\'' +
-                ", logo=" + logo +
+                ", fishSet=" + fishSet +
                 '}';
     }
 }

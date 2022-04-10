@@ -15,42 +15,32 @@ public class Fish extends AbstractEntity {
     private int protectionSize;
 
     @Column(nullable = false)
-    private LocalDate periodOfProtection;
+    private LocalDate periodOfProtectionFrom;
 
-    @OneToMany(mappedBy = "fish",cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
+    @Column(nullable = false)
+    private LocalDate periodOfProtectionTo;
+
+
+    @OneToMany(mappedBy = "fish", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Picture> fishPicture = new ArrayList<>();
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "fish_descriptions_id")
     private FishDescription description;
 
-    @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REFRESH})
-    @JoinTable(name = "district_fish", joinColumns = {@JoinColumn(name = "fish_id")},
-            inverseJoinColumns = {@JoinColumn(name = "district_id")})
+    @ManyToMany
     private Set<FishingDistrict> fishingDistricts = new HashSet<>();
+
 
     public Fish() {
     }
 
-    public Fish(String fishName, int protectionSize, LocalDate periodOfProtection) {
-        this.name = fishName;
+    public Fish(String name, int protectionSize, LocalDate periodOfProtectionFrom, LocalDate periodOfProtectionTo, List<Picture> fishPicture, FishDescription description) {
+        this.name = name;
         this.protectionSize = protectionSize;
-        this.periodOfProtection = periodOfProtection;
-    }
-
-    public List<Picture> getFishImage() {
-        return fishPicture;
-    }
-
-    public void setFishImage(List<Picture> fishPicture) {
+        this.periodOfProtectionFrom = periodOfProtectionFrom;
+        this.periodOfProtectionTo = periodOfProtectionTo;
         this.fishPicture = fishPicture;
-    }
-
-    public FishDescription getDescription() {
-        return description;
-    }
-
-    public void setDescription(FishDescription description) {
         this.description = description;
     }
 
@@ -70,37 +60,56 @@ public class Fish extends AbstractEntity {
         this.protectionSize = protectionSize;
     }
 
-    public LocalDate getPeriodOfProtection() {
-        return periodOfProtection;
+    public LocalDate getPeriodOfProtectionFrom() {
+        return periodOfProtectionFrom;
     }
 
-    public void setPeriodOfProtection(LocalDate periodOfProtection) {
-        this.periodOfProtection = periodOfProtection;
+    public void setPeriodOfProtectionFrom(LocalDate periodOfProtectionFrom) {
+        this.periodOfProtectionFrom = periodOfProtectionFrom;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Fish)) return false;
-        if (!super.equals(o)) return false;
-        Fish fish = (Fish) o;
-        return protectionSize == fish.protectionSize &&
-                Objects.equals(name, fish.name) &&
-                Objects.equals(periodOfProtection, fish.periodOfProtection) &&
-                Objects.equals(fishPicture, fish.fishPicture);
+    public LocalDate getPeriodOfProtectionTo() {
+        return periodOfProtectionTo;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name, protectionSize, periodOfProtection, fishPicture);
+    public void setPeriodOfProtectionTo(LocalDate periodOfProtectionTo) {
+        this.periodOfProtectionTo = periodOfProtectionTo;
+    }
+
+    public List<Picture> getFishPicture() {
+        return fishPicture;
+    }
+
+    public void setFishPicture(List<Picture> fishPicture) {
+        this.fishPicture = fishPicture;
+    }
+
+    public FishDescription getDescription() {
+        return description;
+    }
+
+    public void setDescription(FishDescription description) {
+        this.description = description;
+    }
+
+    public Set<FishingDistrict> getFishingDistricts() {
+        return fishingDistricts;
+    }
+
+    public void setFishingDistricts(Set<FishingDistrict> fishingDistricts) {
+        this.fishingDistricts = fishingDistricts;
     }
 
     @Override
     public String toString() {
         return "Fish{" +
-                "fishName='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", protectionSize=" + protectionSize +
-                ", periodOfProtection=" + periodOfProtection +
+                ", periodOfProtectionFrom=" + periodOfProtectionFrom +
+                ", periodOfProtectionTo=" + periodOfProtectionTo +
+                ", fishPicture=" + fishPicture +
+                ", description=" + description +
+                ", fishingDistricts=" + fishingDistricts +
                 '}';
     }
 }

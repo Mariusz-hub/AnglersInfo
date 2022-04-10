@@ -1,5 +1,7 @@
 package com.angler.domain;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Objects;
@@ -12,17 +14,20 @@ public class Picture extends AbstractEntity {
     private String url;
 
     @Lob
-    @Column(name = "picture", columnDefinition = "BYTEA")
+    @Column(name = "picture", columnDefinition = "OID")
     private byte[] picture;
 
-    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST,CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
     @JoinColumn(name = "fish_id")
     private Fish fish;
 
-    @OneToOne(mappedBy = "logo",cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-    private FishingDistrict fishingDistrict;
+
 
     public Picture() {
+    }
+
+    public Picture(String url) {
+        this.url = url;
     }
 
     public Picture(byte[] picture, Fish fish) {
@@ -30,11 +35,10 @@ public class Picture extends AbstractEntity {
         this.fish = fish;
     }
 
-    public Picture(String url, byte[] picture, Fish fish, FishingDistrict fishingDistrict) {
+    public Picture(String url, byte[] picture, Fish fish) {
         this.url = url;
         this.picture = picture;
         this.fish = fish;
-        this.fishingDistrict = fishingDistrict;
     }
 
     public byte[] getPicture() {
@@ -61,13 +65,7 @@ public class Picture extends AbstractEntity {
         this.url = url;
     }
 
-    public FishingDistrict getFishingDistrict() {
-        return fishingDistrict;
-    }
 
-    public void setFishingDistrict(FishingDistrict fishingDistrict) {
-        this.fishingDistrict = fishingDistrict;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -77,13 +75,12 @@ public class Picture extends AbstractEntity {
         Picture picture1 = (Picture) o;
         return Objects.equals(url, picture1.url) &&
                 Arrays.equals(picture, picture1.picture) &&
-                Objects.equals(fish, picture1.fish) &&
-                Objects.equals(fishingDistrict, picture1.fishingDistrict);
+                Objects.equals(fish, picture1.fish);
     }
 
     @Override
     public int hashCode() {
-        int result = Objects.hash(super.hashCode(), url, fish, fishingDistrict);
+        int result = Objects.hash(super.hashCode(), url, fish);
         result = 31 * result + Arrays.hashCode(picture);
         return result;
     }
@@ -94,7 +91,6 @@ public class Picture extends AbstractEntity {
                 "url='" + url + '\'' +
                 ", picture=" + Arrays.toString(picture) +
                 ", fish=" + fish +
-                ", fishingDistrict=" + fishingDistrict +
                 '}';
     }
 }
