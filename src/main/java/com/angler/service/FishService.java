@@ -1,7 +1,9 @@
 package com.angler.service;
 
 import com.angler.domain.Fish;
+import com.angler.domain.FishingDistrict;
 import com.angler.repository.FishRepository;
+import com.angler.repository.FishingDistrictRepository;
 import com.angler.utils.FishMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,11 +17,13 @@ public class FishService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FishService.class);
     private final FishRepository fishRepository;
+    private final FishingDistrictRepository fishingDistrictRepository;
     private final FishMapper fishMapper;
 
     @Autowired
-    public FishService(FishRepository fishRepository, FishMapper fishMapper) {
+    public FishService(FishRepository fishRepository, FishingDistrictRepository fishingDistrictRepository, FishMapper fishMapper) {
         this.fishRepository = fishRepository;
+        this.fishingDistrictRepository = fishingDistrictRepository;
         this.fishMapper = fishMapper;
     }
 
@@ -29,8 +33,18 @@ public class FishService {
         return fishToSave;
     }
 
+    public FishingDistrict saveDistrict(FishingDistrict district){
+        FishingDistrict fishingDistrict = fishingDistrictRepository.save(district);
+        LOGGER.info("Object Fish is created "+fishingDistrict.getName());
+        return fishingDistrict;
+    }
+
+
     @EventListener(ApplicationReadyEvent.class)// wywolywana w momencie uruchumienia apki
     public void fillDb(){
+        saveDistrict(new FishingDistrict("PZW Skierniewice"));
+        saveDistrict(new FishingDistrict("PZW Białystok"));
+        saveDistrict(new FishingDistrict("PZW Warszawa"));
 
     }
 

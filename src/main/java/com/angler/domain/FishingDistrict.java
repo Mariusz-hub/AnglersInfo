@@ -18,6 +18,10 @@ public class FishingDistrict extends AbstractEntity {
     public FishingDistrict() {
     }
 
+    public FishingDistrict(String name) {
+        this.name = name;
+    }
+
     public String getName() {
         return name;
     }
