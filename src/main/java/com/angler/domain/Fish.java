@@ -24,23 +24,24 @@ public class Fish extends AbstractEntity {
     @OneToMany(mappedBy = "fish", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     private List<Picture> fishPicture = new ArrayList<>();
 
-    @OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
+    @OneToOne()
     @JoinColumn(name = "fish_descriptions_id")
     private FishDescription description;
 
-    @ManyToMany
+    @ManyToMany()
+    @JoinTable(name = "fish_district_relation",joinColumns = {@JoinColumn(name = "fish_id")},
+                                     inverseJoinColumns = {@JoinColumn(name = "district_id")})
     private Set<FishingDistrict> fishingDistricts = new HashSet<>();
 
 
     public Fish() {
     }
 
-    public Fish(String name, int protectionSize, LocalDate periodOfProtectionFrom, LocalDate periodOfProtectionTo, List<Picture> fishPicture, FishDescription description) {
+    public Fish(String name, int protectionSize, LocalDate periodOfProtectionFrom, LocalDate periodOfProtectionTo, FishDescription description) {
         this.name = name;
         this.protectionSize = protectionSize;
         this.periodOfProtectionFrom = periodOfProtectionFrom;
         this.periodOfProtectionTo = periodOfProtectionTo;
-        this.fishPicture = fishPicture;
         this.description = description;
     }
 

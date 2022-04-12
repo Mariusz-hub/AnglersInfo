@@ -10,7 +10,7 @@ public class FishDescription extends AbstractEntity{
     @Column(name = "description",length = 1000)
     private String description;
 
-    @OneToOne(mappedBy = "description", cascade = { CascadeType.MERGE})
+    @OneToOne(mappedBy = "description")
     private Fish fish;
 
     public FishDescription() {

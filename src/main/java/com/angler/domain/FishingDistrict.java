@@ -12,7 +12,7 @@ public class FishingDistrict extends AbstractEntity {
     @Column
     private String name;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "fishingDistricts")
     private Set<Fish> fishSet = new HashSet<>();
 
     public FishingDistrict() {

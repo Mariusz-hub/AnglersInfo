@@ -1,15 +1,13 @@
 package com.angler.service;
 
 import com.angler.domain.Fish;
-import com.angler.domain.FishingDistrict;
 import com.angler.repository.FishRepository;
 import com.angler.repository.FishingDistrictRepository;
 import com.angler.utils.FishMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationReadyEvent;
-import org.springframework.context.event.EventListener;
+
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,20 +31,10 @@ public class FishService {
         return fishToSave;
     }
 
-    public FishingDistrict saveDistrict(FishingDistrict district){
-        FishingDistrict fishingDistrict = fishingDistrictRepository.save(district);
-        LOGGER.info("Object Fish is created "+fishingDistrict.getName());
-        return fishingDistrict;
-    }
 
 
-    @EventListener(ApplicationReadyEvent.class)// wywolywana w momencie uruchumienia apki
-    public void fillDb(){
-        saveDistrict(new FishingDistrict("PZW Skierniewice"));
-        saveDistrict(new FishingDistrict("PZW Białystok"));
-        saveDistrict(new FishingDistrict("PZW Warszawa"));
 
-    }
+
 
 
 }
