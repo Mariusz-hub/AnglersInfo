@@ -39,17 +39,17 @@ public class AnglersInfoApplication implements CommandLineRunner {
 		FishingDistrict mazowsze = new FishingDistrict("Okręg Mazowiecki");
 		FishingDistrict skierniewice = new FishingDistrict("Okręg Skierniewicki");
 
-		Fish fish = new Fish("Szczupak",55, LocalDate.now(),LocalDate.now().plusMonths(3l),fishDescription);
-		Fish fish1 = new Fish("Szczupak",50, LocalDate.now(),LocalDate.now().plusMonths(3l),fishDescription);
+//		Fish fish = new Fish("Szczupak",55, LocalDate.now(),LocalDate.now().plusMonths(3l),fishDescription);
+//		Fish fish1 = new Fish("Szczupak",50, LocalDate.now(),LocalDate.now().plusMonths(3l),fishDescription);
 
-		fish.getFishingDistricts().add(mazowsze);
-		fish1.getFishingDistricts().add(skierniewice);
-		mazowsze.getFishSet().add(fish);
-		skierniewice.getFishSet().add(fish);
-		fishingDescriptionRepository.save(fishDescription);
-		fishingDistrictRepository.save(mazowsze);
-		fishingDistrictRepository.save(skierniewice);
-		fishRepository.save(fish);
-		fishRepository.save(fish1);
+//		fish.getFishingDistricts().add(mazowsze);
+//		fish1.getFishingDistricts().add(skierniewice);
+//		mazowsze.getFishSet().add(fish);
+//		skierniewice.getFishSet().add(fish);
+//		fishingDescriptionRepository.save(fishDescription);
+//		fishingDistrictRepository.save(mazowsze);
+//		fishingDistrictRepository.save(skierniewice);
+//		fishRepository.save(fish);
+//		fishRepository.save(fish1);
 	}
 }

@@ -10,7 +10,8 @@ public class FishDescription extends AbstractEntity{
     @Column(name = "description",length = 1000)
     private String description;
 
-    @OneToOne(mappedBy = "description")
+    @OneToOne(optional = false)
+    @JoinColumn(name = "fish_id")
     private Fish fish;
 
     public FishDescription() {

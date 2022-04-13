@@ -12,10 +12,16 @@ public class FishingDistrict extends AbstractEntity {
     @Column
     private String name;
 
-    @ManyToMany(mappedBy = "fishingDistricts")
+    @ManyToMany()
+    @JoinTable(name = "fish_district_relation",joinColumns = {@JoinColumn(name = "district_id")},
+            inverseJoinColumns = {@JoinColumn(name = "fish_id")})
     private Set<Fish> fishSet = new HashSet<>();
 
     public FishingDistrict() {
+    }
+
+    public void addFish(Fish fish){
+        this.fishSet.add(fish);
     }
 
     public FishingDistrict(String name) {

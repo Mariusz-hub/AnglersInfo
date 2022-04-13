@@ -1,6 +1,7 @@
 package com.angler.domain;
 
 import org.hibernate.annotations.Type;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnJava;
 
 import javax.persistence.*;
 import java.util.Arrays;
@@ -17,12 +18,9 @@ public class Picture extends AbstractEntity {
     @Column(name = "picture", columnDefinition = "OID")
     private byte[] picture;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST,CascadeType.REMOVE})
+    @ManyToOne
     @JoinColumn(name = "fish_id")
     private Fish fish;
-
-
-
     public Picture() {
     }
 

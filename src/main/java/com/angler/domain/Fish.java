@@ -20,19 +20,8 @@ public class Fish extends AbstractEntity {
     @Column(nullable = false)
     private LocalDate periodOfProtectionTo;
 
-
-    @OneToMany(mappedBy = "fish", cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private List<Picture> fishPicture = new ArrayList<>();
-
-    @OneToOne()
-    @JoinColumn(name = "fish_descriptions_id")
+    @OneToOne(mappedBy = "fish")
     private FishDescription description;
-
-    @ManyToMany()
-    @JoinTable(name = "fish_district_relation",joinColumns = {@JoinColumn(name = "fish_id")},
-                                     inverseJoinColumns = {@JoinColumn(name = "district_id")})
-    private Set<FishingDistrict> fishingDistricts = new HashSet<>();
-
 
     public Fish() {
     }
@@ -77,14 +66,6 @@ public class Fish extends AbstractEntity {
         this.periodOfProtectionTo = periodOfProtectionTo;
     }
 
-    public List<Picture> getFishPicture() {
-        return fishPicture;
-    }
-
-    public void setFishPicture(List<Picture> fishPicture) {
-        this.fishPicture = fishPicture;
-    }
-
     public FishDescription getDescription() {
         return description;
     }
@@ -93,12 +74,22 @@ public class Fish extends AbstractEntity {
         this.description = description;
     }
 
-    public Set<FishingDistrict> getFishingDistricts() {
-        return fishingDistricts;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Fish)) return false;
+        if (!super.equals(o)) return false;
+        Fish fish = (Fish) o;
+        return protectionSize == fish.protectionSize &&
+                Objects.equals(name, fish.name) &&
+                Objects.equals(periodOfProtectionFrom, fish.periodOfProtectionFrom) &&
+                Objects.equals(periodOfProtectionTo, fish.periodOfProtectionTo) &&
+                Objects.equals(description, fish.description);
     }
 
-    public void setFishingDistricts(Set<FishingDistrict> fishingDistricts) {
-        this.fishingDistricts = fishingDistricts;
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), name, protectionSize, periodOfProtectionFrom, periodOfProtectionTo, description);
     }
 
     @Override
@@ -108,9 +99,7 @@ public class Fish extends AbstractEntity {
                 ", protectionSize=" + protectionSize +
                 ", periodOfProtectionFrom=" + periodOfProtectionFrom +
                 ", periodOfProtectionTo=" + periodOfProtectionTo +
-                ", fishPicture=" + fishPicture +
                 ", description=" + description +
-                ", fishingDistricts=" + fishingDistricts +
                 '}';
     }
 }
