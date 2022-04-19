@@ -12,7 +12,7 @@ public class FishingDistrict extends AbstractEntity {
     @Column
     private String name;
 
-    @ManyToMany()
+    @ManyToMany
     @JoinTable(name = "fish_district_relation",joinColumns = {@JoinColumn(name = "district_id")},
             inverseJoinColumns = {@JoinColumn(name = "fish_id")})
     private Set<Fish> fishSet = new HashSet<>();

@@ -20,9 +20,6 @@ public class Fish extends AbstractEntity {
     @Column(nullable = false)
     private LocalDate periodOfProtectionTo;
 
-    @OneToOne(mappedBy = "fish")
-    private FishDescription description;
-
     public Fish() {
     }
 
@@ -65,13 +62,6 @@ public class Fish extends AbstractEntity {
         this.periodOfProtectionTo = periodOfProtectionTo;
     }
 
-    public FishDescription getDescription() {
-        return description;
-    }
-
-    public void setDescription(FishDescription description) {
-        this.description = description;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -82,13 +72,12 @@ public class Fish extends AbstractEntity {
         return protectionSize == fish.protectionSize &&
                 Objects.equals(name, fish.name) &&
                 Objects.equals(periodOfProtectionFrom, fish.periodOfProtectionFrom) &&
-                Objects.equals(periodOfProtectionTo, fish.periodOfProtectionTo) &&
-                Objects.equals(description, fish.description);
+                Objects.equals(periodOfProtectionTo, fish.periodOfProtectionTo);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), name, protectionSize, periodOfProtectionFrom, periodOfProtectionTo, description);
+        return Objects.hash(super.hashCode(), name, protectionSize, periodOfProtectionFrom, periodOfProtectionTo);
     }
 
     @Override
@@ -98,7 +87,6 @@ public class Fish extends AbstractEntity {
                 ", protectionSize=" + protectionSize +
                 ", periodOfProtectionFrom=" + periodOfProtectionFrom +
                 ", periodOfProtectionTo=" + periodOfProtectionTo +
-                ", description=" + description +
                 '}';
     }
 }

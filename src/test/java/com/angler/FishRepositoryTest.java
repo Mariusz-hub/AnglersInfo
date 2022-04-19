@@ -23,7 +23,6 @@ public class FishRepositoryTest {
 
         assertThat(fish.getId(),equalTo(1l) );
         assertThat(fish.getName(),equalTo("Szczupak") );
-        assertThat(fish.getDescription().getId(),equalTo(1l) );
 
     }
 }

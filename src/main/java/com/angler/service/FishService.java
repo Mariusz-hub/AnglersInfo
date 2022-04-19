@@ -32,9 +32,29 @@ public class FishService {
     }
 
 
+    public Fish getFish(long id) {
+        Fish fish = fishRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Fish not found"));
+        return fish;
+    }
+
+    public Fish updateFish(long id, Fish fish) {
+        return fishRepository.findById(id)
+                .map(element -> {
+                    element.setName(fish.getName());
+                    element.setProtectionSize(fish.getProtectionSize());
+                    element.setPeriodOfProtectionFrom(fish.getPeriodOfProtectionFrom());
+                    element.setPeriodOfProtectionTo(fish.getPeriodOfProtectionTo());
+                    return fishRepository.save(element);
+                }).orElseGet(()->{
+                    fish.setId(id);
+                    return  fishRepository.save(fish);
+                });
 
 
+    }
 
-
-
+    public void deleteFish(Long id) {
+        Fish deleteFish = fishRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Fish not found"));
+        fishRepository.delete(deleteFish);
+    }
 }
