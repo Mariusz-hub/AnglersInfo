@@ -26,12 +26,11 @@ public class Fish extends AbstractEntity {
     public Fish() {
     }
 
-    public Fish(String name, int protectionSize, LocalDate periodOfProtectionFrom, LocalDate periodOfProtectionTo, FishDescription description) {
+    public Fish(String name, int protectionSize, LocalDate periodOfProtectionFrom, LocalDate periodOfProtectionTo) {
         this.name = name;
         this.protectionSize = protectionSize;
         this.periodOfProtectionFrom = periodOfProtectionFrom;
         this.periodOfProtectionTo = periodOfProtectionTo;
-        this.description = description;
     }
 
     public String getName() {

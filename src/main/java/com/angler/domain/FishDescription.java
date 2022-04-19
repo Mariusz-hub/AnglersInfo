@@ -10,11 +10,16 @@ public class FishDescription extends AbstractEntity{
     @Column(name = "description",length = 1000)
     private String description;
 
-    @OneToOne(optional = false)
+    @OneToOne()
     @JoinColumn(name = "fish_id")
     private Fish fish;
 
     public FishDescription() {
+    }
+
+    public FishDescription(String description, Fish fish) {
+        this.description = description;
+        this.fish = fish;
     }
 
     public FishDescription(String fishDesctription) {

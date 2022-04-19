@@ -12,6 +12,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @SpringBootApplication
 public class AnglersInfoApplication implements CommandLineRunner {
@@ -35,21 +36,24 @@ public class AnglersInfoApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		FishDescription fishDescription = new FishDescription("Szczupak Król Wód");
+
 		FishingDistrict mazowsze = new FishingDistrict("Okręg Mazowiecki");
 		FishingDistrict skierniewice = new FishingDistrict("Okręg Skierniewicki");
 
-//		Fish fish = new Fish("Szczupak",55, LocalDate.now(),LocalDate.now().plusMonths(3l),fishDescription);
-//		Fish fish1 = new Fish("Szczupak",50, LocalDate.now(),LocalDate.now().plusMonths(3l),fishDescription);
+		Fish fish = new Fish("Szczupak",55, LocalDate.now(),LocalDate.now().plusMonths(3l));
+		Fish fish1 = new Fish("Szczupak",50, LocalDate.now(),LocalDate.now().plusMonths(3l));
 
-//		fish.getFishingDistricts().add(mazowsze);
-//		fish1.getFishingDistricts().add(skierniewice);
-//		mazowsze.getFishSet().add(fish);
-//		skierniewice.getFishSet().add(fish);
-//		fishingDescriptionRepository.save(fishDescription);
-//		fishingDistrictRepository.save(mazowsze);
-//		fishingDistrictRepository.save(skierniewice);
-//		fishRepository.save(fish);
-//		fishRepository.save(fish1);
+		FishDescription fishDescription = new FishDescription("Szczupak Król Wód",fish);
+		FishDescription fishDescription1 = new FishDescription("Szczupak Król Wód",fish1);
+
+
+		fishRepository.save(fish);
+		fishRepository.save(fish1);
+		fishingDescriptionRepository.save(fishDescription);
+		fishingDescriptionRepository.save(fishDescription1);
+		mazowsze.addFish(fish);
+		skierniewice.addFish(fish1);
+		fishingDistrictRepository.saveAll(List.of(mazowsze,skierniewice));
+
 	}
 }
