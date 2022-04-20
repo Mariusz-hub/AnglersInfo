@@ -17,6 +17,7 @@ public class FishingDistrict extends AbstractEntity {
             inverseJoinColumns = {@JoinColumn(name = "fish_id")})
     private Set<Fish> fishSet = new HashSet<>();
 
+
     public FishingDistrict() {
     }
 
@@ -66,4 +67,6 @@ public class FishingDistrict extends AbstractEntity {
                 ", fishSet=" + fishSet +
                 '}';
     }
+
+
 }

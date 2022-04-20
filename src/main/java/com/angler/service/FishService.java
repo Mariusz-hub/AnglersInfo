@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class FishService {
 
@@ -56,5 +58,9 @@ public class FishService {
     public void deleteFish(Long id) {
         Fish deleteFish = fishRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Fish not found"));
         fishRepository.delete(deleteFish);
+    }
+
+    public List<Fish> getFishes() {
+      return   fishRepository.findAll();
     }
 }

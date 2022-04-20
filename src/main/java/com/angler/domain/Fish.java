@@ -89,4 +89,5 @@ public class Fish extends AbstractEntity {
                 ", periodOfProtectionTo=" + periodOfProtectionTo +
                 '}';
     }
+
 }
