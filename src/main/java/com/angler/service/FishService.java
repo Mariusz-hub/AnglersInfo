@@ -1,6 +1,7 @@
 package com.angler.service;
 
 import com.angler.domain.Fish;
+import com.angler.domain.FishDto;
 import com.angler.repository.FishRepository;
 import com.angler.repository.FishingDistrictRepository;
 import com.angler.utils.FishMapper;
@@ -62,5 +63,11 @@ public class FishService {
 
     public List<Fish> getFishes() {
       return   fishRepository.findAll();
+    }
+
+    public FishDto getFishDto(Long id){
+        Fish fish = fishRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Fish not found"));
+
+        return fishMapper.map(fish);
     }
 }

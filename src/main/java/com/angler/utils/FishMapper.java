@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class FishMapper implements MapperDto<FishDto, Fish> {
     @Override
-    public FishDto from(Fish from) {
-        FishDto fishDto = new FishDto(from.getName(), from.getProtectionSize(),
-                from.getPeriodOfProtectionFrom(),from.getPeriodOfProtectionTo());
+    public FishDto map(Fish fish) {
+        FishDto fishDto = new FishDto(fish.getName(), fish.getProtectionSize(),
+                fish.getPeriodOfProtectionFrom(),fish.getPeriodOfProtectionTo());
         return fishDto;
     }
 }

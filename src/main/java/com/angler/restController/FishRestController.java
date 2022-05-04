@@ -2,6 +2,7 @@ package com.angler.restController;
 
 
 import com.angler.domain.Fish;
+import com.angler.domain.FishDto;
 import com.angler.service.FishService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -56,12 +57,17 @@ public class FishRestController {
     @PutMapping("fishes/{id}")
     public ResponseEntity<Fish> updateFish(@PathVariable long id, @RequestBody Fish fish){
         Fish updateFish = fishService.updateFish(id,fish);
-        return ResponseEntity.status(HttpStatus.OK).build();
+        return ResponseEntity.status(HttpStatus.OK).body(updateFish);
     }
 
     @DeleteMapping("fishes/{id}")
     public void  deleteFish(@PathVariable Long id){
         fishService.deleteFish(id);
+    }
+
+    @GetMapping("/fishess/{id}")
+    public FishDto getFishDto(Long id){
+        return fishService.getFishDto(id);
     }
 
     // TODO check DeleteMapping (foreign key)

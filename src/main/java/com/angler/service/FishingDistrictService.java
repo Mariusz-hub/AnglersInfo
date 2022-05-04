@@ -6,19 +6,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
-public class FishDistrictService {
+public class FishingDistrictService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(FishingDistrict.class);
     private final FishingDistrictRepository fishingDistrictRepository;
 
-    public FishDistrictService(FishingDistrictRepository fishingDistrictRepository) {
+    public FishingDistrictService(FishingDistrictRepository fishingDistrictRepository) {
         this.fishingDistrictRepository = fishingDistrictRepository;
     }
 
     public FishingDistrict saveDistrict(FishingDistrict district){
         FishingDistrict fishingDistrict = fishingDistrictRepository.save(district);
         LOGGER.info("Object Fish is created "+fishingDistrict.getName());
+        return fishingDistrict;
+    }
+
+    public List<FishingDistrict> getFishingDistricts() {
+       List<FishingDistrict> fishingDistricts = fishingDistrictRepository.findAll();
+       return fishingDistricts;
+    }
+
+    public FishingDistrict getFishingDistrict(long id) {
+        FishingDistrict fishingDistrict = fishingDistrictRepository.findById(id).orElseThrow
+                (() ->new IllegalArgumentException("District not found"));
         return fishingDistrict;
     }
 }
