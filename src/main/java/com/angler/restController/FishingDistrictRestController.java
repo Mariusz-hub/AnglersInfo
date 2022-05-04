@@ -1,5 +1,6 @@
 package com.angler.restController;
 
+import com.angler.domain.Fish;
 import com.angler.domain.FishingDistrict;
 import com.angler.service.FishingDistrictService;
 import org.springframework.web.bind.annotation.*;
@@ -33,5 +34,11 @@ public class FishingDistrictRestController {
         return saveDistrict;
     }
 
-    
+    @PutMapping("/fishingDistrict/{id}")
+    public FishingDistrict updateOrSaveFishingDistrict(long id, @RequestBody FishingDistrict fishingDistrict){
+      FishingDistrict district = fishingDistrictService.updateOrSaveFishingDistrict(id,fishingDistrict);
+      return district;
+    }
+
+
 }

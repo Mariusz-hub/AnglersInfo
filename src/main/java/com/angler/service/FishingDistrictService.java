@@ -34,4 +34,16 @@ public class FishingDistrictService {
                 (() ->new IllegalArgumentException("District not found"));
         return fishingDistrict;
     }
+
+    public FishingDistrict updateOrSaveFishingDistrict(long id, FishingDistrict fishingDistrict) {
+        FishingDistrict district = fishingDistrictRepository.findById(id)
+                .map(element -> {
+                    element.setName(fishingDistrict.getName());
+                    return fishingDistrictRepository.save(element);
+                }).orElseGet(() -> {
+                    fishingDistrict.setId(id);
+                    return fishingDistrictRepository.save(fishingDistrict);
+                });
+        return district;
+    }
 }
