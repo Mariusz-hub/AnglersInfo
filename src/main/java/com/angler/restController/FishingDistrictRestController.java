@@ -2,9 +2,7 @@ package com.angler.restController;
 
 import com.angler.domain.FishingDistrict;
 import com.angler.service.FishingDistrictService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -28,4 +26,12 @@ public class FishingDistrictRestController {
         FishingDistrict fishingDistrict = fishingDistrictService.getFishingDistrict(id);
         return fishingDistrict;
     }
+
+    @PostMapping("/fishingDistricts")
+    public FishingDistrict createFishingDistrict(@RequestBody FishingDistrict fishingDistrict){
+        FishingDistrict saveDistrict = fishingDistrictService.saveDistrict(fishingDistrict);
+        return saveDistrict;
+    }
+
+    
 }
